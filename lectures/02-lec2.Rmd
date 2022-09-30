@@ -1,0 +1,147 @@
+# Data and Project Basics
+
+In this lecture we will talk about what data is, why it is important, how to begin dealing with it in a computer, and some techniques for storing your data so that it remains in working condition.
+
+## Data
+
+Your data is the heart of any research project. Whether you are a qualitative scholar and your data consists mostly of interview notes or an experimental researcher with data painstakingly gathered from human subjects or a quantitative researcher dealing with large data sets of individual meta data --- your *data*, is the source of your argument.
+
+To a computer however, data can take several forms. The most common form of data you will deal with is descriptive data. Descriptive data tells you some set of attributes that are indexed by whatever it is they describe. For example: a person may be indexed by a number, and the descriptive data about this person may be their age, sex, ethnicity, income, etc.
+
+The most common data file types you will deal with in your career are:
+
+- csv --- a common separated value (delimited) file
+- txt --- a tab delimited file
+- xlxs --- an Excel file, which we will most likely want to covert to a csv
+- json --- web data will typically come in the form of json data
+
+R has four main data structures that you will work with. These are:
+
+```{r eval=FALSE}
+data.frame()
+matrix()
+list()
+vector()
+```
+
+- A data frame can contain lists and vectors and contains a column and row index.
+  - ex: `x.df <- read.csv("df.csv")... x.df <- data.frame(V1 = rep(1, 100))`
+- A vector is a string of data, data frames are made up of vectors of data.
+  - ex: `x.vector <- x.df$V1`
+- A list is an object that contains other types of data - vector, string, other lists, etc.
+  - ex: `x.list <- c(c(1,2,3), c("High","Med","Low))`
+- A matrix is a square data structure containing numerical data.
+  - ex: `x.matrix <- matrix(1,1,2,1, nrow = 2, byrow = TRUE)`
+- There are also Arrays and Strings, which are less common and we can cover them later.
+
+### Working with Data
+
+We will focus mostly on the data frame for now, as data frames will be the main type of data that you will work with. R does everything (for now) "in memory", which means that you must load data into you computer's memory to work with it in the R global environment for that R session.
+
+First we are going to load a few libraries:
+
+```{r eval=FALSE}
+library(data.table)
+library(ggplot2)
+```
+
+These two libraries you will likely want to load at the beginning of every R session.
+
+To load text data we will use one of the following functions:
+
+```{r eval=FALSE}
+# Read Data into Memory (RAM)
+## csv
+df <- read.csv("datatablename.csv", ...) # base R
+    ## Options
+    # header = T --- if data has headers
+    # stringsAsFactors = T --- will make character variables factors
+    # na.strings = c("") --- will generate NA in place of blank/missing data
+
+df <- fread("datatablename.csv", ...) # data.table function (faster than base R)
+    ## Options --- same as above +
+    # trim = T --- will trim white space from data on read
+
+## delim
+df <- read.delim("datatablename.csv", sep = "\t", ...) # base R
+
+## Comment: The data.table package fread() function is faster than base R and is generally what you will want to use.
+            ## The fread() function will automatically detect the file type from the file name you give it.
+            ## base R read.xxx is generally better for scripted workloads where libraries can be problematic.
+
+```
+
+Selecting the best function to read your data can be tricky if you do not understand your data ahead of time. Sometimes it is best to limit the size of what data you load in by simply saying `nrow = 100`, which will load only the first 100 rows of data.
+
+Once you have loaded your data you will then want to begin to explore it a bit.
+
+- Start by running these two basic functions on your data:
+  - `summary(df)` --- which will provide you with a summary of your data, e.g. counts, quintiles, etc.
+  - `str(df)` --- which will provide you with information about what the structure of your data is, e.g. is column 1 a factor or character variable, etc.
+
+Now that you have a basic understanding of your data. You can begin to clean and manipulate the data to fit your needs.
+
+## Projects
+
+There are two basic ways to create a stable working environment when you start a new project.
+
+Type 1: Local
+
+1. Create a folder on your hard drive that will function as the main bucket for your work - "Paper_Project_2022-1"
+2. Create a sub folders in your project that will contain your base research, your paper drafts, and your data
+3. Using RStudio, create a new project `file -> new project -> local project -> create new subfolder for project`
+    - This will ensure that you have backwards and forwards compatibility between scripts and will contain all of the working portions of your analysis
+    - *TIP* I do this after I have finished creating a final file, in other words I wait until I have a working analysis to perform this step
+
+Type 2: Git
+
+1. Create a new repository in GitHub (options: `public + add README`)
+2. Create new RStudio project as before but this time click `Version Control` and select `Git`
+3. From GitHub copy the URL from the clone with HTTPS
+4. Paste this URL in the RStudio dialogue window and create a directory on your local machine where the project will be copied.
+
+Why you may not want to use either Git or the project ecosystem:
+
+- I have personally found these ecosystems to be limiting, as the way R works (by creating "sessions") you are not able to open multiple project at the same time.
+- If you are like me and are working on many different projects that are unrelated, simultaneously, this will cause you to have to slow down your workflow.
+
+That said, unless you are comfortable managing large data sets and keeping track of your code, the project method will likely be the best way for you to proceed.
+
+
+## RMarkdown Basics
+
+To start an RMarkdown document:
+
+1. Open RStudio and select `File -> New File -> RMarkdown...`
+2. A dialogue window will open and ask you to select the type of file you would like to create:
+    - PDF is most likely what you will want to create
+    - Enter your name and the title of the PDF in the dialogue window where indicated
+3. Once the .RMD file is open, click the `knit` button at the top of the script window and this will force you to save this file in the directory of your choice.
+
+RMarkdown is a great tool for writing your papers, creating presentations quickly, and doing problem sets. One of the main advantages of RMarkdown is that R code and graphics can be evaluated directly within the project.
+
+To do this at the beginning of each new RMarkdown file there is a header R code chunk:
+
+```{r setup, include=FALSE, echo=TRUE, eval=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# load libraries here
+# load main data sources for your document here
+```
+
+*Note: the `echo=TRUE` and `eval=FALSE` statements are to show this chunk and are not a part of your normal Markdown document.*
+
+In this initial code chunk you will be able to load you libraries and data.
+
+In other code chunks you will be able to insert graphics, tables, and even evaluate whole models directly inside the markdown document. For example:
+
+```{r eval=FALSE}
+ggplot(data=mean_ntot, aes(x=n_total, y=mean_n, colour=type, group=type)) +
+  geom_line() +
+  geom_point() +
+  geom_text(
+    label=mean_ntot$n_total, 
+    nudge_x = 0, nudge_y = 0.02,
+    check_overlap = T
+  ) + ylab("dnd rate") + xlab("total frequency") +
+  ggtitle("Break Rate") + theme_bw()
+```

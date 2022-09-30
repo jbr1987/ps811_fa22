@@ -1,0 +1,83 @@
+# Introduction and Setup
+
+9/12/2022
+
+## What is programming and how will you use it?
+
+Programming is essentially you telling the computer to do something using a language it can understand.
+
+You will use programming extensively to conduct your research throughout your career.
+
+## Why R?
+
+- R is a special purpose language used by researchers and data scientists the world over to conduct statistical research
+- R was designed to do stats - many of its functions are built around this idea
+- R can do much more than just stats, especially when coupled with RStudio
+  - Shiny: analytics dashboards and websites
+  - Markdown: Latex documents directly from R (including graphics and data)
+
+## Why not Python or C++ or some other GPL?
+
+- Python: you may find Python to be more useful in certain situations in your career or simply like writing it in better.
+  - I have found R to be more useful to my research though because of the extensive libraries created by the R community
+- C/C++: the bigger the data or the more complex the mathematical operation, you may find it necessary
+  - In general, C++ is more difficult to use when testing an idea or performing a simple analysis (read: unnecessary)
+  - R and C/C++ are actually intimately tied together, as many R functions are actually written in C/C++
+
+## Limitations of R
+
+R has some limitations...
+
+- R has a very steep learning curve and can be difficult for new users to get going and feel comfortable
+- R does everything IN MEMORY, meaning it will eat your RAM
+- R is slow relative to other programming languages for certain tasks
+- R can be more difficult to use for parallel computing tasks, but it can be done and is efficient
+
+## What makes R Great!
+
+R has lots of great qualities though!
+
+- For graphics, R is hard to beat and is arguably the best language around
+- R has the best and largest community of contributors in Academia
+  - Contributor produce the libraries you will use to do much of your analysis and no other language really comes close for statistical or mathematical computing
+- R is great for coding mathematical functions
+- R is an interpreted language which makes it great for exploring your data, creating/test new analyses and approaches, and for iterating new code
+
+## Installing R
+
+First we have to install base R before we do anything else.
+Follow the download at this url: http://cran.wustl.edu/
+
+## Installing R Studio
+
+Download and install: https://www.rstudio.com/products/rstudio/download/#download
+
+## Installing Git
+
+Download and install: https://git-scm.com/downloads
+
+## Installing Latex
+
+Download and install: https://www.latex-project.org/get/
+
+## Accounts
+
+You will need accounts with the following online platforms:
+
+- GitHub Account - https://www.github.com
+- Overleaf Account - https://www.overleaf.com
+
+## Thoughts
+
+- This class is meant to be helpful, not stressful
+- Often times what you learn in 811 will be directly relatable to what you are doing in 812 and other courses
+
+**Learning how to Google well and interpret what you see is the most important thing to learn early on!**
+
+- StackOverflow (GP)
+- StackExchange (GP)
+- https://www.statmethods.net/ (R)
+- https://stat.ethz.ch/R-manual/ (R)
+- http://adv-r.had.co.nz/ (R)
+
+Among hundreds...
